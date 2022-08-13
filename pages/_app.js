@@ -4,8 +4,15 @@ import _appStyle from './_app.module.css'
 import '../styles/global.css'
 
 class Layout extends App {
+	static async getInitialProps({ Component, ctx }) {
+		let pageProps = {}
+		if (Component.getInitialProps) {
+			pageProps = await Component.getInitialProps(ctx)
+		}
+		return  { pageProps }
+	}
 	render() {
-		const { Component: RouteComponent } = this.props
+		const { Component: RouteComponent, pageProps } = this.props
 		return (
 			<div>
 				<style jsx>
@@ -23,11 +30,11 @@ class Layout extends App {
 					<img src="/images/logo.png" className={_appStyle.logo}/>
 					<ul>
 						<li><Link href="/">首页</Link></li>
-						<li><Link href="/user">用户管理</Link></li>
+						<li><Link href="/user/list">用户管理</Link></li>
 						<li><Link href="/profile">个人中心</Link></li>
 					</ul>
 				</header>
-				<RouteComponent />
+				<RouteComponent {...pageProps}/>
 				<footer style={{textAlign: "center"}}>@copyright 前端架构</footer>
 			</div>
 		)
