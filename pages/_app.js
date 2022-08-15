@@ -4,7 +4,12 @@ import _appStyle from './_app.module.css'
 import '../styles/global.css'
 
 class Layout extends App {
+	constructor(props) {
+		super(props)
+		console.log('Layout constructor')
+	}
 	static async getInitialProps({ Component, ctx }) {
+		console.log('Layout getInitialProps')
 		let pageProps = {}
 		if (Component.getInitialProps) {
 			pageProps = await Component.getInitialProps(ctx)
